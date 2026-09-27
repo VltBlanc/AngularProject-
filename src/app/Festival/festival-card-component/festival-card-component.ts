@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal, computed} from '@angular/core';
 
 @Component({
   imports: [],
@@ -6,4 +6,25 @@ import { Component } from '@angular/core';
   styleUrl: './festival-card-component.css',
   templateUrl: './festival-card-component.html',
 })
-export class FestivalCardComponent {}
+export class FestivalCardComponent {
+   festival1 = signal<Festival>({
+    id: 1,
+    name: "PolyFestival",
+    location:"Montpellier",
+    year: 2026,
+  });
+
+editionLabel = computed(() => `\({this.festival1().name} - Édition\){this.festival1().year}`);
+
+NextEdition(): void {
+  this.festival1.update( f => ({...f, year: this.festival1().year + 1}) )
+}
+
+}
+
+export interface Festival {
+  readonly id: number;
+  name: string;
+  location: string;
+  year: number;
+ } 

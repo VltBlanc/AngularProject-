@@ -3,7 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { FestivalCardComponent } from './Festival/festival-card-component/festival-card-component';
 
 @Component({
-  imports: [RouterOutlet,FestivalCardComponent],
+  imports: [FestivalCardComponent],
   selector: 'app-root',
   styleUrl: './app.css',
   templateUrl: './app.html',

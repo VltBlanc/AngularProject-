@@ -12,6 +12,7 @@ export class FestivalCardComponent {
       name: "PolyFestival",
       location:"Montpellier",
       year: 2026,
+      status: "open"
     });
 
   editionLabel = computed(() => `\({this.festival1().name} - Édition\){this.festival1().year}`);
@@ -20,9 +21,10 @@ export class FestivalCardComponent {
     this.festival1.update( f => ({...f, year: this.festival1().year + 1}) )
   }
   constructor(){
-  effect(() => { console.log("L'édition courante est :", this.festival1().year)});
-    
-}
+  effect(() => { console.log("L'édition courante est :", this.festival1().year)});  
+  }
+
+  
 }
 
 export interface Festival {
@@ -30,4 +32,7 @@ export interface Festival {
   name: string;
   location: string;
   year: number;
+  status: FestivalStatus; 
  } 
+
+ type FestivalStatus = 'planned' | 'open' | 'closed';

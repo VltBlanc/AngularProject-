@@ -1,6 +1,23 @@
 <article>
     <h2>{{ festival1().name }}</h2>
-    <p> {{festival1().location}}</p>
-    <p> {{festival1().year}}</p>
-    <button label="button" (click)="NextEdition()">EditionSuivante</button>
+
+    <p>Lieu : {{ festival1().location }}</p>
+    <p>{{ festival1().year }}</p>
+
+    @switch (festival1().status) {
+        @case ('planned') {
+            <p>Ouverture prochaine</p>
+        }
+        @case ('open') {
+            <p>Festival ouvert</p>
+        }
+        @case ('closed') {
+            <p>Festival terminé</p>
+        }
+        @default {
+            <p>État inconnu</p>
+        }
+    }
+
+    <button type="button" (click)="NextEdition()">Édition suivante</button>
 </article>

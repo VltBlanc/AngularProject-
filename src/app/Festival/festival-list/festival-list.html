@@ -1,0 +1,8 @@
+
+@for (festival of festivals(); track festival.id) {
+    <app-festival-card-component
+      [festival]="festival"
+      (next)="nextEdition($event)" />
+  } @empty {
+    <p>Aucun festival disponible.</p>
+  }

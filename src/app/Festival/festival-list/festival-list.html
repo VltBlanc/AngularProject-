@@ -1,6 +1,9 @@
-<p>{{ festivals().length }} festival(s)</p>
 <p role="status">{{ statusMessage() }}</p>
-@for (festival of festivals(); track festival.id) {
-  <app-festival-card-component [festival]="festival" (remove)="removeFestival($event)" />} @empty {
+
+@for (festival of service.festivals(); track festival.id) {
+  <app-festival-card-component
+    [festival]="festival"
+    (remove)="removeFestival($event)" />
+} @empty {
   <p>Aucun festival à afficher.</p>
 }

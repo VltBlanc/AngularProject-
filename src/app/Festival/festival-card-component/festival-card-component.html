@@ -13,4 +13,9 @@
       @case ('closed') { <p>Festival terminé</p> }
       @default { <p>État inconnu</p> }
     }
+
+
+    <button type="button" (click)="remove.emit(festival().id)">
+      Supprimer
+    </button>
   </article>

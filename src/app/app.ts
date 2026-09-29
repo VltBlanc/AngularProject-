@@ -1,8 +1,9 @@
 import { Component, signal } from '@angular/core';
 import { FestivalList } from './Festival/festival-list/festival-list';
+import { Header } from './Festival/header/header';
 
 @Component({
-  imports: [FestivalList],
+  imports: [FestivalList, Header],
   selector: 'app-root',
   styleUrl: './app.css',
   templateUrl: './app.html',

@@ -3,8 +3,9 @@ export interface Festival {
   name: string;
   location: string;
   year: number;
-  status: FestivalStatus; 
-  featured: boolean; 
- } 
- 
- export type FestivalStatus = 'planned' | 'open' | 'closed';
+  status: 'planned' | 'open' | 'closed';
+  featured: boolean;
+}
+
+export type FestivalDraft = Pick<Festival, 'name' | 'location' | 'year'>;
+export type FestivalFormModel = Omit<FestivalDraft, 'year'> & { year: number | null };

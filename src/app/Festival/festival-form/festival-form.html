@@ -1,0 +1,46 @@
+<form>
+    <div>
+      <label for="festival-name">Nom</label>
+      <input id="festival-name" [formField]="festivalForm.name"
+        [attr.aria-invalid]="festivalForm.name().touched() && festivalForm.name().invalid() ? 'true' : null"
+        [attr.aria-describedby]="festivalForm.name().touched() && festivalForm.name().invalid() ? 'name-errors' : null">
+      @if (festivalForm.name().touched() && festivalForm.name().invalid()) {
+        <ul id="name-errors">
+          @for (error of festivalForm.name().errors(); track error.kind) {
+            <li>{{ error.message }}</li>
+          }
+        </ul>
+      }
+    </div>
+  
+    <div>
+      <label for="festival-location">Lieu</label>
+      <input id="festival-location" [formField]="festivalForm.location"
+        [attr.aria-invalid]="festivalForm.location().touched() && festivalForm.location().invalid() ? 'true' : null"
+        [attr.aria-describedby]="festivalForm.location().touched() && festivalForm.location().invalid() ? 'location-errors' : null">
+      @if (festivalForm.location().touched() && festivalForm.location().invalid()) {
+        <ul id="location-errors">
+          @for (error of festivalForm.location().errors(); track error.kind) {
+            <li>{{ error.message }}</li>
+          }
+        </ul>
+      }
+    </div>
+  
+    <div>
+      <label for="festival-year">Année</label>
+      <input id="festival-year" type="number" step="any" [formField]="festivalForm.year"
+        [attr.aria-invalid]="festivalForm.year().touched() && festivalForm.year().invalid() ? 'true' : null"
+        [attr.aria-describedby]="festivalForm.year().touched() && festivalForm.year().invalid() ? 'year-errors' : null">
+      @if (festivalForm.year().touched() && festivalForm.year().invalid()) {
+        <ul id="year-errors">
+          @for (error of festivalForm.year().errors(); track error.kind) {
+            <li>{{ error.message }}</li>
+          }
+        </ul>
+      }
+    </div>
+  </form>
+  
+  <h2>Aperçu du brouillon</h2>
+  <pre>{{ model() | json }}</pre>

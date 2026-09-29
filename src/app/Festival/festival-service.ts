@@ -1,5 +1,6 @@
 import { Service, signal, computed, effect } from '@angular/core';
 import { Festival } from './festival'; 
+import { FestivalDraft } from './festival';
 
 @Service()
 export class FestivalService {
@@ -35,4 +36,30 @@ export class FestivalService {
     );
     return true;
   }
+
+
+  add(draft: FestivalDraft): Festival {
+    const id = Math.max(0, ...this._festivals().map(f => f.id)) + 1;
+    const created: Festival = { ...draft, id, status: 'planned', featured: false };
+    this._festivals.update(list => [...list, created]);
+    return created;
+  }
+  
+  update(change: Partial<Festival> & { id: number }): boolean {
+    if (!this.findById(change.id)) return false;
+    this._festivals.update(list =>
+      list.map(f => (f.id === change.id ? { ...f, ...change } : f)));
+    return true;
+  }
+
+  private readonly _editRequest = signal<number | null>(null);
+readonly editRequest = this._editRequest.asReadonly();
+
+requestEdit(id: number): void {
+  this._editRequest.set(id);
+}
+
+clearEditRequest(): void {
+  this._editRequest.set(null);
+}
 }

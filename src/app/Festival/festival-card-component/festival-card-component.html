@@ -1,21 +1,23 @@
 <article [class.highlight]="festival().featured">
-    <h2>{{ festival().name }}</h2>
-    <p>{{ editionLabel() }}</p>
-    <p>Lieu : {{ festival().location }}</p>
-  
-    @if (festival().featured) {
-      <p> Événement principal</p>
-    }
-  
-    @switch (festival().status) {
-      @case ('planned') { <p>Ouverture prochaine</p> }
-      @case ('open') { <p>Festival ouvert</p> }
-      @case ('closed') { <p>Festival terminé</p> }
-      @default { <p>État inconnu</p> }
-    }
+  <h2>{{ festival().name }}</h2>
+  <p>{{ editionLabel() }}</p>
+  <p>Lieu : {{ festival().location }}</p>
 
+  @if (festival().featured) {
+    <p>Événement principal</p>
+  }
 
-    <button type="button" (click)="remove.emit(festival().id)">
-      Supprimer
-    </button>
-  </article>
+  @switch (festival().status) {
+    @case ('planned') { <p>Ouverture prochaine</p> }
+    @case ('open') { <p>Festival ouvert</p> }
+    @case ('closed') { <p>Festival terminé</p> }
+    @default { <p>État inconnu</p> }
+  }
+
+  <button type="button" (click)="edit.emit(festival().id)">
+    Modifier
+  </button>
+  <button type="button" (click)="remove.emit(festival().id)">
+    Supprimer
+  </button>
+</article>

@@ -11,9 +11,10 @@ export class FestivalCardComponent {
     
   festival = input.required<Festival>(); 
   next = output<number>();
-  
   readonly remove = output<number>(); 
+  readonly edit = output<number>();     
 
+  
   editionLabel = computed(
     () => `${this.festival().name} - Édition ${this.festival().year}`
   );

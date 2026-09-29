@@ -23,4 +23,8 @@ export class FestivalList {
   nextEdition(id: number): void {
     this.service.nextEdition(id);
   }
+
+  onEdit(id: number): void {
+    this.service.requestEdit(id);
+  }
 }

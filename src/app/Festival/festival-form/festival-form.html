@@ -1,46 +1,64 @@
-<form>
+<h3>{{ selectedId() === null ? 'Création' : 'Modification' }}</h3>
+
+<form (submit)="onSubmit($event)" novalidate>
+  <fieldset [disabled]="editorForm().submitting()">
+    <legend>Données éditables</legend>
+
     <div>
       <label for="festival-name">Nom</label>
-      <input id="festival-name" [formField]="festivalForm.name"
-        [attr.aria-invalid]="festivalForm.name().touched() && festivalForm.name().invalid() ? 'true' : null"
-        [attr.aria-describedby]="festivalForm.name().touched() && festivalForm.name().invalid() ? 'name-errors' : null">
-      @if (festivalForm.name().touched() && festivalForm.name().invalid()) {
+      <input id="festival-name" [formField]="editorForm.name"
+        [attr.aria-invalid]="editorForm.name().touched() && editorForm.name().invalid() ? 'true' : null"
+        [attr.aria-describedby]="editorForm.name().touched() && editorForm.name().invalid() ? 'name-errors' : null">
+      @if (editorForm.name().touched() && editorForm.name().invalid()) {
         <ul id="name-errors">
-          @for (error of festivalForm.name().errors(); track error.kind) {
+          @for (error of editorForm.name().errors(); track error.kind) {
             <li>{{ error.message }}</li>
           }
         </ul>
       }
     </div>
-  
+
     <div>
       <label for="festival-location">Lieu</label>
-      <input id="festival-location" [formField]="festivalForm.location"
-        [attr.aria-invalid]="festivalForm.location().touched() && festivalForm.location().invalid() ? 'true' : null"
-        [attr.aria-describedby]="festivalForm.location().touched() && festivalForm.location().invalid() ? 'location-errors' : null">
-      @if (festivalForm.location().touched() && festivalForm.location().invalid()) {
+      <input id="festival-location" [formField]="editorForm.location"
+        [attr.aria-invalid]="editorForm.location().touched() && editorForm.location().invalid() ? 'true' : null"
+        [attr.aria-describedby]="editorForm.location().touched() && editorForm.location().invalid() ? 'location-errors' : null">
+      @if (editorForm.location().touched() && editorForm.location().invalid()) {
         <ul id="location-errors">
-          @for (error of festivalForm.location().errors(); track error.kind) {
+          @for (error of editorForm.location().errors(); track error.kind) {
             <li>{{ error.message }}</li>
           }
         </ul>
       }
     </div>
-  
+
     <div>
       <label for="festival-year">Année</label>
-      <input id="festival-year" type="number" step="any" [formField]="festivalForm.year"
-        [attr.aria-invalid]="festivalForm.year().touched() && festivalForm.year().invalid() ? 'true' : null"
-        [attr.aria-describedby]="festivalForm.year().touched() && festivalForm.year().invalid() ? 'year-errors' : null">
-      @if (festivalForm.year().touched() && festivalForm.year().invalid()) {
+      <input id="festival-year" type="number" step="any" [formField]="editorForm.year"
+        [attr.aria-invalid]="editorForm.year().touched() && editorForm.year().invalid() ? 'true' : null"
+        [attr.aria-describedby]="editorForm.year().touched() && editorForm.year().invalid() ? 'year-errors' : null">
+      @if (editorForm.year().touched() && editorForm.year().invalid()) {
         <ul id="year-errors">
-          @for (error of festivalForm.year().errors(); track error.kind) {
+          @for (error of editorForm.year().errors(); track error.kind) {
             <li>{{ error.message }}</li>
           }
         </ul>
       }
     </div>
-  </form>
-  
-  <h2>Aperçu du brouillon</h2>
-  <pre>{{ model() | json }}</pre>
+
+    <button type="submit">
+      {{ editorForm().submitting() ? 'Enregistrement…' : 'Enregistrer' }}
+    </button>
+    <button type="button" (click)="cancel()">Annuler</button>
+    <button type="button" (click)="startCreate()">Nouvelle création</button>
+  </fieldset>
+
+  @for (error of editorForm().errors(); track error.kind) {
+    <p class="error">{{ error.message }}</p>
+  }
+</form>
+
+<p role="status">{{ statusMessage() }}</p>
+
+<h2>Aperçu du brouillon</h2>
+<pre>{{ model() | json }}</pre>

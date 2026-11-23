@@ -13,10 +13,14 @@
     @case ('closed') { <p>Festival terminé</p> }
     @default { <p>État inconnu</p> }
   }
+  <button type="button" (click)="next.emit(festival().id)">
+    Édition suivante
+  </button>
 
   <button type="button" (click)="edit.emit(festival().id)">
     Modifier
   </button>
+  
   <button type="button" (click)="remove.emit(festival().id)">
     Supprimer
   </button>

@@ -12,7 +12,17 @@ describe('FestivalCardComponent', () => {
 
     fixture = TestBed.createComponent(FestivalCardComponent);
     component = fixture.componentInstance;
-    await fixture.whenStable();
+
+    fixture.componentRef.setInput('festival', {
+       id: 1,
+       name: 'PolyFestival',
+       location: 'Montpellier',
+       year: 2026,
+       status: 'open',
+      featured: true,
+});
+
+await fixture.whenStable();
   });
 
   it('should create', () => {

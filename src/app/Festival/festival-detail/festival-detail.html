@@ -1,0 +1,19 @@
+<h2>Fiche du festival</h2>
+
+@if (festivalId() === null) {
+  <p role="alert">
+    Identifiant invalide : un entier positif est attendu.
+  </p>
+} @else if (festival(); as item) {
+  <article>
+    <h3>{{ item.name }}</h3>
+    <p>Lieu : {{ item.location }}</p>
+    <p>Année : {{ item.year }}</p>
+  </article>
+} @else {
+  <p role="alert">
+    Aucun festival ne correspond à cet identifiant.
+  </p>
+}
+
+<a routerLink="/festivals">Retour au catalogue</a>

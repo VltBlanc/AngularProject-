@@ -1,8 +1,8 @@
 import { Component, signal, computed, effect, input, output } from '@angular/core';
 import { Festival } from '../festival';
-
+import { RouterLink } from '@angular/router';
 @Component({
-  imports: [],
+  imports: [RouterLink],
   selector: 'app-festival-card-component',
   styleUrl: './festival-card-component.css',
   templateUrl: './festival-card-component.html',

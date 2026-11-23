@@ -2,10 +2,18 @@
 
 @for (festival of service.festivals(); track festival.id) {
   <app-festival-card-component
+    #festivalCard
     [festival]="festival"
     (next)="nextEdition($event)"
     (remove)="removeFestival($event)"
     (edit)="onEdit($event)" />
 } @empty {
   <p>Aucun festival à afficher.</p>
+
+  <button
+    #createButton
+    type="button"
+    (click)="create.emit()">
+    Créer un festival
+  </button>
 }

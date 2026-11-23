@@ -3,6 +3,7 @@
 @for (festival of service.festivals(); track festival.id) {
   <app-festival-card-component
     [festival]="festival"
+    (next)="nextEdition($event)"
     (remove)="removeFestival($event)"
     (edit)="onEdit($event)" />
 } @empty {

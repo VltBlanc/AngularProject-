@@ -1,6 +1,6 @@
-import { Component, effect, inject, signal, untracked } from '@angular/core';
+import { Component, effect, inject, signal, untracked, } from '@angular/core';
 import { JsonPipe } from '@angular/common';
-import { form, FormField, required, submit } from '@angular/forms/signals';
+import { form, FormField, required, submit, validate } from '@angular/forms/signals';
 import { Festival, FestivalFormModel, festivalToForm, emptyFestivalForm, toFestivalDraft } from '../festival';
 import { FestivalService } from '../festival-service';
 
@@ -15,11 +15,58 @@ export class FestivalForm {
   readonly statusMessage = signal('');
   readonly model = signal<FestivalFormModel>(emptyFestivalForm());
 
-  readonly editorForm = form(this.model, path => {
-    required(path.name,     { message: 'Nom du festival : valeur obligatoire.' });
-    required(path.location, { message: 'Ville : valeur obligatoire.' });
-    required(path.year,     { message: 'Année : valeur obligatoire.' });
+readonly editorForm = form(this.model, path => {
+  required(path.name, {
+    message: 'Le nom du festival est obligatoire.',
   });
+
+  validate(path.name, ({ value }) => {
+    const name = value();
+
+    if (name === '' || name.trim().length >= 3) {
+      return null;
+    }
+
+    return {
+      kind: 'shortName',
+      message: 'Le nom doit contenir au moins 3 caractères hors espaces de début et de fin.',
+    };
+  });
+
+  required(path.location, {
+    message: 'Le lieu est obligatoire.',
+  });
+
+  validate(path.location, ({ value }) => {
+    const location = value();
+
+    if (location === '' || location.trim().length > 0) {
+      return null;
+    }
+
+    return {
+      kind: 'blankLocation',
+      message: 'Le lieu ne peut pas contenir uniquement des espaces.',
+    };
+  });
+
+  required(path.year, {
+    message: "L’année est obligatoire.",
+  });
+
+  validate(path.year, ({ value }) => {
+    const year = value();
+
+    if (year === null || Number.isInteger(year)) {
+      return null;
+    }
+
+    return {
+      kind: 'integerYear',
+      message: "L’année doit être un nombre entier.",
+    };
+  });
+});
 
   startEdit(item: Festival): void {
     if (this.editorForm().submitting()) return;

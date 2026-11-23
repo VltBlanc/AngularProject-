@@ -13,6 +13,14 @@
     @case ('closed') { <p>Festival terminé</p> }
     @default { <p>État inconnu</p> }
   }
+
+
+  <a
+    [routerLink]="['/festivals', festival().id]"
+    [attr.aria-label]="'Consulter ' + festival().name">
+     Consulter
+  </a>
+
   <button type="button" (click)="next.emit(festival().id)">
     Édition suivante
   </button>

@@ -1,14 +1,11 @@
-import { Component, signal } from '@angular/core';
-import { FestivalList } from './Festival/festival-list/festival-list';
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 import { Header } from './Festival/header/header';
-import { FestivalForm } from './Festival/festival-form/festival-form';
 
 @Component({
-  imports: [FestivalList, Header, FestivalForm],
   selector: 'app-root',
-  styleUrl: './app.css',
+  imports: [Header, RouterOutlet],
   templateUrl: './app.html',
+  styleUrl: './app.css',
 })
-export class App {
-  protected readonly title = signal('festival-BLANC-app');
-}
+export class App {}
